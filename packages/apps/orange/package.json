@@ -1,0 +1,11 @@
+{
+	"name": "orange",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"dev": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true WDS_SOCKET_PORT=4002 webpack serve --config ./configs/webpack.config.dev.ts"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
+}
