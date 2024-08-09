@@ -7,9 +7,11 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 
 import { AppModule } from './modules/app/app.module';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
+import { AuthModule } from './modules/auth/auth.module';
+import { TokenModule } from './modules/token/token.module';
+import { UserModule } from './modules/user/user.module';
 
 import type { Request, Response } from 'express';
-import { AuthModule } from './modules/auth/auth.module';
 
 const envFilePath = ['.env'];
 if (process.env.NODE_ENV === 'development') {
@@ -93,7 +95,9 @@ if (process.env.NODE_ENV === 'development') {
     }),
 
     AuthModule,
+    TokenModule,
     AppModule,
+    UserModule,
   ],
   providers: [Logger],
 })

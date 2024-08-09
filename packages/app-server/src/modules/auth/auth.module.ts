@@ -9,7 +9,10 @@ import { AuthSerializer } from './auth.serializer';
 import { UserModule } from '@/modules/user/user.module';
 
 @Module({
-  imports: [UserModule, PassportModule.register({ defaultStrategy: 'github' })],
+  imports: [
+    UserModule,
+    PassportModule.register({ defaultStrategy: 'github', session: true }),
+  ],
   controllers: [AuthController],
   providers: [Logger, AuthService, AuthSerializer, GitHubStrategy, GithubGuard],
 })

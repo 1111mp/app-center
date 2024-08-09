@@ -39,12 +39,22 @@ export class App {
   })
   name: string;
 
+  @Prop({
+    required: true,
+    type: Number,
+  })
   type: number;
 
   @Prop({
     type: SchemaTypes.Mixed,
   })
   logo?: string | { url: string };
+
+  @Prop({
+    required: true,
+    type: String,
+  })
+  token: string;
 
   @Prop({
     required: true,
@@ -83,6 +93,16 @@ export class App {
     type: [{ type: Object }],
   })
   versions: AppVersion[];
+
+  @Prop({
+    type: [{ type: String }],
+  })
+  admins?: string[];
+
+  @Prop({
+    type: { type: Object },
+  })
+  config?: {};
 
   @Prop({
     type: Date,

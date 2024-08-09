@@ -1,11 +1,22 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { randomBytes } from 'node:crypto';
+import { AuthGuard, type IAuthModuleOptions } from '@nestjs/passport';
 import { Request } from 'express';
 
 @Injectable()
 export class GithubGuard extends AuthGuard('github') {
-  getAuthenticateOptions(context: ExecutionContext) {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    const activate = (await super.canActivate(context)) as boolean;
+
+    if (activate) {
+      const request = context.switchToHttp().getRequest();
+
+      await super.logIn(request);
+    }
+
+    return activate;
+  }
+
+  getAuthenticateOptions(context: ExecutionContext): IAuthModuleOptions {
     const req = context.switchToHttp().getRequest<Request>();
     const state = { redirect: req.query.redirect };
 

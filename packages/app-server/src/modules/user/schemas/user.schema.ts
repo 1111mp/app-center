@@ -38,6 +38,16 @@ export class User {
   })
   email?: string;
 
+  @Prop({
+    type: Boolean,
+  })
+  isAdmin: boolean;
+
+  @Prop({
+    type: Boolean,
+  })
+  disabled?: boolean;
+
   publicData: Record<string, any>;
 }
 
