@@ -37,6 +37,7 @@
     "ejs": "^3.1.10",
     "express-session": "^1.18.0",
     "jsdom": "^24.1.1",
+    "mongo-gridfs": "^1.1.0",
     "mongoose": "^8.5.2",
     "nest-winston": "^1.10.0",
     "passport-github2": "^0.1.12",

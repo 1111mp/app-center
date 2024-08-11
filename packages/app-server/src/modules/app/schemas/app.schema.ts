@@ -1,27 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, SchemaTypes } from 'mongoose';
 
-interface AppVersion {
-  version: string;
-  resources: Resource;
-  desc?: string;
-  createAt: number;
-  config: Record<string, string>;
-}
-
-interface CoreAppVersion {
-  version: string;
-  resources: Resource;
-  config: Record<string, string>;
-}
-
-type Resource =
-  | string[]
-  | {
-      scripts?: string[];
-      styles?: string[];
-      html?: string;
-    };
+import type { AppVersion, CoreAppVersion } from '../types/app-version.type';
 
 @Schema({ timestamps: true, versionKey: false })
 export class App {

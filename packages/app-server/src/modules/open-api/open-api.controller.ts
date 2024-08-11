@@ -18,7 +18,7 @@ export class OpenApiContriller {
   constructor(private readonly fileService: FileService) {}
 
   @UseGuards(AppTokenGuard)
-  @Post('app/file/upload')
+  @Post('file/upload')
   @UseInterceptors(FileInterceptor('file'))
   async fileUpload(
     @UploadedFile() file: Express.Multer.File,
@@ -27,4 +27,11 @@ export class OpenApiContriller {
   ) {
     return this.fileService.uploadStaticFile(file, app.key, filePath);
   }
+
+  @UseGuards(AppTokenGuard)
+  @Post('app/create-version')
+  async createAppVersion(
+    @Body() createAppVersionDto: CreateAppVersionDto,
+    @AppData() app: AppDocument,
+  ) {}
 }

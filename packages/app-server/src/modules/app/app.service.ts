@@ -13,10 +13,10 @@ import { UserDocument } from '@/modules/user/schemas/user.schema';
 
 @Injectable()
 export class AppService {
-  constructor(@InjectModel(App.name) private readonly appModule: Model<App>) {}
+  constructor(@InjectModel(App.name) private readonly appModel: Model<App>) {}
 
   async getByToken(key: string, token: string) {
-    return this.appModule.findOne({ key, token });
+    return this.appModel.findOne({ key, token });
   }
 
   async createOne(createAppDto: CreateAppDto, user: UserDocument) {
@@ -33,7 +33,7 @@ export class AppService {
     }
 
     const createBy = user._id.toString();
-    return this.appModule.create({
+    return this.appModel.create({
       ...createAppDto,
       createBy,
       owner: createBy,

@@ -1,0 +1,1 @@
+export const FS_STATIC_SERVICE = 'STATIC_FS_SERVICE';

@@ -12,12 +12,12 @@ import { CreateTokenDto } from '@/modules/token/dto/create-token.dto';
 @Injectable()
 export class UserService {
   constructor(
-    @InjectModel(User.name) private readonly userModule: Model<User>,
+    @InjectModel(User.name) private readonly userModel: Model<User>,
     private readonly tokenService: TokenService,
   ) {}
 
   async findById(id: string | Types.ObjectId) {
-    return this.userModule.findById(id);
+    return this.userModel.findById(id);
   }
 
   async findByToken(token: string) {
@@ -28,17 +28,17 @@ export class UserService {
       (tokenDocument.source === TokenSource.USER ||
         tokenDocument.source === TokenSource.DESKTOP)
     ) {
-      return this.userModule.findById(tokenDocument.owner);
+      return this.userModel.findById(tokenDocument.owner);
     }
 
     return null;
   }
 
   async upsertOne(userDto: CreateUserDto): Promise<UserDocument> {
-    let user = await this.userModule.findOne({ authId: userDto.authId });
+    let user = await this.userModel.findOne({ authId: userDto.authId });
 
     if (!user) {
-      user = await this.userModule.create(userDto);
+      user = await this.userModel.create(userDto);
     } else if (!isEqual(pick(user, Object.keys(userDto)), userDto)) {
       user = Object.assign(user, userDto);
       await user.save();
