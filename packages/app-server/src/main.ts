@@ -36,7 +36,13 @@ async function bootstrap() {
 
   app.use(express.raw({ limit: '100mb' }));
   app.use(express.json({ limit: '10mb' }));
-  app.use(express.urlencoded({ limit: '10mb' }));
+  /**
+   * The extended option is set to true, which means that the URL-encoded data will be parsed with the qs library,
+   * allowing for rich objects and arrays to be encoded into the URL-encoded format.
+   *
+   * If you set extended to false, it will use the querystring library for parsing, which does not support nested objects.
+   */
+  app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalInterceptors(new RespTransformInterceptor());

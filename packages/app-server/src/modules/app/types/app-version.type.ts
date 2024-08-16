@@ -12,7 +12,7 @@ export interface CoreAppVersion {
   config: Record<string, string>;
 }
 
-type Resource =
+export type Resource =
   | string[]
   | {
       scripts?: string[];

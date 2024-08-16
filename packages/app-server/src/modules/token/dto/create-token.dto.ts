@@ -7,8 +7,8 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-import { TokenSource, TokenType } from '../types/token.enum';
 import { Transform } from 'class-transformer';
+import { TokenSource, TokenType } from '../types/token.enum';
 
 export class CreateTokenDto {
   @IsNotEmpty()

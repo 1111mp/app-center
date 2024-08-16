@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
+  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -11,11 +13,16 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { AppData } from '@/decorators/app-data.decorator';
 import { AppDocument } from '@/modules/app/schemas/app.schema';
 import { AppTokenGuard } from '@/guards/app-token.guard';
+import { AppService } from '@/modules/app/app.service';
 import { FileService } from '@/modules/file/file.service';
+import { CreateAppVersionDto } from '@/modules/app/dto/create-app-version.dto';
 
 @Controller('open-api')
 export class OpenApiContriller {
-  constructor(private readonly fileService: FileService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly fileService: FileService,
+  ) {}
 
   @UseGuards(AppTokenGuard)
   @Post('file/upload')
@@ -33,5 +40,17 @@ export class OpenApiContriller {
   async createAppVersion(
     @Body() createAppVersionDto: CreateAppVersionDto,
     @AppData() app: AppDocument,
-  ) {}
+  ) {
+    return this.appService.createVersion(app, createAppVersionDto);
+  }
+
+  @UseGuards(AppTokenGuard)
+  @Get('app/validate-version')
+  async validateVersion(
+    @Query('version') version: string,
+    @AppData()
+    app: AppDocument,
+  ) {
+    return this.appService.validateVersion(app, version);
+  }
 }
