@@ -10,6 +10,7 @@ import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { AuthModule } from './modules/auth/auth.module';
 import { TokenModule } from './modules/token/token.module';
 import { UserModule } from './modules/user/user.module';
+import { OpenApiModule } from './modules/open-api/open-api.module';
 
 import type { Request, Response } from 'express';
 
@@ -44,7 +45,7 @@ if (process.env.NODE_ENV === 'development') {
             renderPath: '*',
             renderFn: (req: Request, res: Response, next) => {
               if (
-                ['/api', '/app-static'].find(
+                ['/api', '/open-api', '/app-static'].find(
                   (path) => req.originalUrl.indexOf(path) !== -1,
                 )
               ) {
@@ -98,6 +99,7 @@ if (process.env.NODE_ENV === 'development') {
     TokenModule,
     AppModule,
     UserModule,
+    OpenApiModule,
   ],
   providers: [Logger],
 })

@@ -9,5 +9,6 @@ import { App, AppSchema } from './schemas/app.schema';
   imports: [MongooseModule.forFeature([{ name: App.name, schema: AppSchema }])],
   controllers: [AppController],
   providers: [Logger, AppService],
+  exports: [AppService],
 })
 export class AppModule {}

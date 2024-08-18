@@ -1,0 +1,44 @@
+{
+  "name": "deployer",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "deployer": "bin/deployer.js"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup"
+  },
+  "dependencies": {
+    "axios": "^1.7.4",
+    "cac": "^6.7.14",
+    "form-data": "^4.0.0",
+    "glob": "^11.0.0",
+    "http-proxy-agent": "^7.0.2",
+    "https-proxy-agent": "^7.0.5",
+    "lib-configuration-resolver": "^1.0.0",
+    "p-limit": "^6.1.0",
+    "picocolors": "^1.0.1",
+    "progress": "^2.0.3"
+  },
+  "devDependencies": {
+    "tsup": "^8.2.4"
+  }
+}

@@ -54,7 +54,7 @@ export const App: React.FC = () => {
 	}, []);
 
 	const onLoginHandle = () => {
-		const url = `http://localhost:3000/api/auth/github?redirect=${encodeURIComponent(window.location.href)}`;
+		const url = `http://localhost:3000/api/oauth/github?redirect=${encodeURIComponent(window.location.href)}`;
 		window.location.href = url;
 	};
 

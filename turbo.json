@@ -1,18 +1,22 @@
 {
-	"$schema": "https://turbo.build/schema.json",
-	"tasks": {
-		"build": {
-			"outputs": [
-				"dist/**"
-			]
-		},
-		"dev": {
-			"cache": false,
-			"persistent": true
-		},
-		"debug": {
-			"cache": false,
-			"persistent": true
-		}
-	}
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "build": {
+      "cache": false,
+      "outputs": ["dist/**"]
+    },
+    "build:release": {
+      "cache": false,
+      "dependsOn": ["^build:release"],
+      "outputs": ["dist/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "debug": {
+      "cache": false,
+      "persistent": true
+    }
+  }
 }

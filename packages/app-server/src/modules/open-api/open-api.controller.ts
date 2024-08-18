@@ -18,7 +18,7 @@ import { FileService } from '@/modules/file/file.service';
 import { CreateAppVersionDto } from '@/modules/app/dto/create-app-version.dto';
 
 @Controller('open-api')
-export class OpenApiContriller {
+export class OpenApiController {
   constructor(
     private readonly appService: AppService,
     private readonly fileService: FileService,
@@ -51,6 +51,6 @@ export class OpenApiContriller {
     @AppData()
     app: AppDocument,
   ) {
-    return this.appService.validateVersion(app, version);
+    await this.appService.validateVersion(app, version);
   }
 }
