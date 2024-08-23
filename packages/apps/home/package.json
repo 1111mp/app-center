@@ -1,0 +1,17 @@
+{
+	"name": "home",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"dev": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true WDS_SOCKET_PORT=4001 webpack serve --config ./configs/webpack.config.dev.ts",
+		"build": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./configs/webpack.config.prod.ts",
+		"build:analyze": "cross-env ANALYZE=true NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./configs/webpack.config.prod.ts",
+		"build:release": "pnpm build & cross-env NODE_ENV=production deployer --config deployer.config.ts"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"deployer": "workspace:*"
+	}
+}

@@ -4,13 +4,13 @@
   "description": "基于微前端架构的Web应用中心 🌈",
   "scripts": {
     "dev": "turbo dev",
-    "dev:server": "turbo dev --filter=app-server",
-    "dev:wrapper": "turbo dev --filter=app-wrapper",
-    "debug:server": "turbo debug --filter=app-server",
+    "dev:server": "turbo dev --filter=server",
+    "dev:wrapper": "turbo dev --filter=wrapper",
+    "debug:server": "turbo debug --filter=server",
     "build": "turbo build",
-    "build:wrapper": "turbo build --filter=app-wrapper",
+    "build:wrapper": "turbo build --filter=wrapper",
     "build:deployer": "turbo build --filter=deployer",
-    "build:release": "turbo build:release --filter=apple --filter=orange"
+    "build:release": "turbo build:release --filter=home --filter=orange"
   },
   "keywords": [],
   "author": "",
