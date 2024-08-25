@@ -1,15 +1,6 @@
-@import url('ui-library/index.css');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-html,
-body,
-#root {
-  width: 100%;
-  height: 100%;
-}
 
 :root {
   --background: 0 0% 100%;
@@ -70,7 +61,6 @@ body,
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
   }

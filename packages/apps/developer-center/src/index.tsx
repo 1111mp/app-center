@@ -2,28 +2,28 @@ import './public-path';
 import { StrictMode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { App } from './app';
+import React from 'react';
 
 interface MicroAppProps {
-	container?: HTMLElement;
-	[key: string]: any; // 这样可以允许其他可能的属性
+  container?: HTMLElement;
+  [key: string]: any; // 这样可以允许其他可能的属性
 }
 
 let root: Root;
 
 function render(props: MicroAppProps) {
-	const { container } = props;
-	root = createRoot(
-		(container
-			? container.querySelector('#root')
-			: document.querySelector('#root')) as HTMLElement
-	);
-	root.render(
-		<StrictMode>
-			<App />
-		</StrictMode>
-	);
+  const { container } = props;
+  root = createRoot(
+    (container
+      ? container.querySelector('#root')
+      : document.querySelector('#root')) as HTMLElement
+  );
+  root.render(
+    <StrictMode>
+      <App />
+    </StrictMode>
+  );
 }
-
 
 if (!window.__POWERED_BY_QIANKUN__) {
   render({});
@@ -34,21 +34,21 @@ if (!window.__POWERED_BY_QIANKUN__) {
  * 通常我们可以在这里做一些全局变量的初始化，比如不会在 unmount 阶段被销毁的应用级别的缓存等。
  */
 export async function bootstrap() {
-	console.log('[orange] app bootstraped');
+  console.log('[apple] app bootstraped');
 }
 
 /**
  * 应用每次进入都会调用 mount 方法，通常我们在这里触发应用的渲染方法
  */
 export async function mount(props: MicroAppProps) {
-	console.log('[orange] props from main framework', props);
-	render(props);
+  console.log('[apple] props from main framework', props);
+  render(props);
 }
 
 /**
  * 应用每次 切出/卸载 会调用的方法，通常在这里我们会卸载微应用的应用实例
  */
 export async function unmount() {
-	console.log('[orange] app unmount');
-	root && root.unmount();
+  console.log('[apple] app unmount');
+  root && root.unmount();
 }

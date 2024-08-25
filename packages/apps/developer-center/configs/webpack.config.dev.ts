@@ -11,6 +11,7 @@ import webpackPaths from './webpack.path';
 const port = process.env.PORT || 4002;
 
 const config: Configuration = {
+  target: 'web',
   devtool: 'inline-source-map',
   mode: 'development',
 
@@ -97,11 +98,7 @@ const config: Configuration = {
       debug: true,
     }),
 
-    new ReactRefreshWebpackPlugin({
-      overlay: {
-        sockIntegration: 'wds',
-      },
-    }),
+    new ReactRefreshWebpackPlugin(),
 
     new HtmlWebpackPlugin({
       filename: 'index.html',

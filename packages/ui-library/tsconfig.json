@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "ui/*": ["../ui/*"]
+      "@/*": ["src/*"]
     }
   },
   "include": ["src", "__tests__"]

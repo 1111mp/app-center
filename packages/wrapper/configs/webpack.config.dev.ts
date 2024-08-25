@@ -14,7 +14,7 @@ const config: Configuration = {
   devtool: 'inline-source-map',
   mode: 'development',
 
-  entry: [webpackPaths.entryPath],
+  entry: [webpackPaths.devEntryPath],
 
   output: {
     path: webpackPaths.distPath,

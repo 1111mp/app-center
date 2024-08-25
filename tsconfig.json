@@ -1,27 +1,31 @@
 {
-	"$schema": "https://json.schemastore.org/tsconfig",
-	"compilerOptions": {
-		"target": "esnext",
-		"module": "esnext",
-		"lib": ["dom", "esnext"],
-		"declaration": true,
-		"sourceMap": true,
-		"moduleResolution": "node",
-		"skipLibCheck": true,
-		"strict": true,
-		"isolatedModules": true,
-		"noFallthroughCasesInSwitch": true,
-		"jsx": "react-jsx",
-		"esModuleInterop": true,
-		"resolveJsonModule": true,
-		"allowSyntheticDefaultImports": true,
-		"downlevelIteration": true
-	},
-	"ts-node": {
-		"compilerOptions": {
-			"module": "CommonJS"
-		}
-	},
-	"include": ["apps"],
-	"exclude": ["**/node_modules", "**/dist", "**/.turbo"]
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["dom", "esnext"],
+    "declaration": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "strict": true,
+    "isolatedModules": true,
+    "noFallthroughCasesInSwitch": true,
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
+    "baseUrl": ".",
+    "paths": {
+      "ui/*": ["packages/ui/*"]
+    }
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
+  "include": ["packages"],
+  "exclude": ["**/node_modules", "**/dist", "**/.turbo"]
 }
