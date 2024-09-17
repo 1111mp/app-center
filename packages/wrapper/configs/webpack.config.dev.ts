@@ -53,7 +53,14 @@ const config: Configuration = {
       // Images
       {
         test: /\.(ico|png|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[contenthash:8].[ext]',
+            },
+          },
+        ],
       },
       // SVG
       {
@@ -114,6 +121,9 @@ const config: Configuration = {
   ].filter(Boolean),
 
   resolve: {
+    alias: {
+      '@': webpackPaths.srcPath,
+    },
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
     // There is no need to add aliases here, the paths in tsconfig get mirrored
     plugins: [new TsconfigPathsPlugins()],

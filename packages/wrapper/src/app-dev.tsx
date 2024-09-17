@@ -4,7 +4,7 @@
 
 import { useEffect, useRef } from 'react';
 import { registerMicroApps, start } from 'qiankun';
-import { Header } from './header';
+import { Header } from '@/components';
 
 export const App: React.FC = () => {
   const pointer = useRef<HTMLDivElement>(null);
@@ -33,9 +33,9 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className='relative min-h-screen flex flex-col bg-background'>
       <Header />
-      <div ref={pointer}></div>
+      <main ref={pointer} className='flex-1'></main>
     </div>
   );
 };

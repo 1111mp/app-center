@@ -1,5 +1,6 @@
-import { registerMicroApps, start } from 'qiankun';
 import { useEffect, useRef } from 'react';
+import { registerMicroApps, start } from 'qiankun';
+import { Header } from './components';
 
 type MicroApp = {
   key: string;
@@ -53,33 +54,15 @@ export const App: React.FC = () => {
     }
   }, []);
 
-  const onLoginHandle = () => {
-    const url = `http://localhost:3000/api/oauth/github?redirect=${encodeURIComponent(window.location.href)}`;
-    window.location.href = url;
-  };
+  // const onLoginHandle = () => {
+  //   const url = `http://localhost:3000/api/oauth/github?redirect=${encodeURIComponent(window.location.href)}`;
+  //   window.location.href = url;
+  // };
 
   return (
-    <div>
-      main
-      <button onClick={onLoginHandle}>login</button>
-      <ul>
-        <li
-          className='text-red-500'
-          onClick={() => {
-            history.pushState(null, '/home', '/home');
-          }}
-        >
-          home
-        </li>
-        <li
-          onClick={() => {
-            history.pushState(null, '/developer-center', '/developer-center');
-          }}
-        >
-          developer-center
-        </li>
-      </ul>
-      <div ref={pointer}></div>
+    <div className='relative min-h-screen flex flex-col bg-background transition-all'>
+      <Header />
+      <main ref={pointer} className='flex-1'></main>
     </div>
   );
 };
