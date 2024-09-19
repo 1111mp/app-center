@@ -88,6 +88,10 @@ if (process.env.NODE_ENV === 'development') {
                 renderFile(
                   join(rootPath, 'index.ejs'),
                   {
+                    resources: {
+                      css: [],
+                      js: [],
+                    },
                     appList: JSON.stringify(app ? parserApp(app, userId) : []),
                   },
                   (error, str) => {

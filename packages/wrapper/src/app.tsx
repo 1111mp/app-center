@@ -2,67 +2,106 @@ import { useEffect, useRef } from 'react';
 import { registerMicroApps, start } from 'qiankun';
 import { Header } from './components';
 
-type MicroApp = {
-  key: string;
-  name: string;
-  prefix: string;
-  resources: string[];
-};
-
-type Entry = {
-  scripts: string[];
-  styles: string[];
-  html?: string;
-};
+import { useAppStore } from './stores/apps.store';
+import { Button } from 'ui-library';
+import { NotFound } from './components/not-found';
 
 export const App: React.FC = () => {
-  const pointer = useRef<HTMLDivElement>(null);
+	const { activeApp, appListMap, updateActiveApp } = useAppStore();
 
-  useEffect(() => {
-    const appList: MicroApp[] = (window as any).APP_LIST || [];
-    if (appList.length && pointer.current) {
-      registerMicroApps(
-        appList.map((app) => {
-          const resources = app.resources || [];
-          const entry = resources.reduce<Entry>(
-            (entry, resource) => {
-              if (resource.endsWith('.js')) {
-                entry.scripts.push(resource);
-              } else if (resource.endsWith('.css')) {
-                entry.styles.push(resource);
-              } else {
-                entry.html = resource;
-              }
+	const pointer = useRef<HTMLDivElement>(null);
 
-              return entry;
-            },
-            { scripts: [], styles: [], html: `<div id="root"></div>` }
-          );
+	useEffect(() => {
+		if (Object.keys(appListMap).length && pointer.current) {
+			registerMicroApps(
+				Object.keys(appListMap).map((key) => {
+					const app = appListMap[key];
+					const resources = app.resources || [];
+					const entry = resources.reduce<AppEntry>(
+						(entry, resource) => {
+							if (resource.endsWith('.js')) {
+								entry.scripts.push(resource);
+							} else if (resource.endsWith('.css')) {
+								entry.styles.push(resource);
+							} else {
+								entry.html = resource;
+							}
 
-          return {
-            name: app.name,
-            entry,
-            container: pointer.current!,
-            activeRule: (location) => {
-              return location.pathname.startsWith(app.prefix);
-            },
-          };
-        })
-      );
+							return entry;
+						},
+						{ scripts: [], styles: [], html: `<div id="root"></div>` }
+					);
 
-      start({ prefetch: false });
-    }
-  }, []);
+					return {
+						name: app.name,
+						entry,
+						container: pointer.current!,
+						activeRule: (location) => {
+							return location.pathname.startsWith(app.prefix);
+						},
+					};
+				})
+			);
 
-  // const onLoginHandle = () => {
-  //   const url = `http://localhost:3000/api/oauth/github?redirect=${encodeURIComponent(window.location.href)}`;
-  //   window.location.href = url;
-  // };
+			start({ prefetch: false });
+		}
+	}, [appListMap]);
 
-  return (
-    <div className='relative min-h-screen flex flex-col bg-background transition-all'>
-      <Header />
-      <main ref={pointer} className='flex-1'></main>
-    </div>
-  );
+	useEffect(() => {
+		if (location.pathname === '/') {
+			history.replaceState({}, '', '/home');
+			return;
+		}
+
+		const apps = Object.values(appListMap);
+		if (!apps.length) return;
+
+		const matched = apps.find(
+			(app) => app.prefix && location.pathname.startsWith(app.prefix)
+		);
+		console.log('matched', matched);
+
+		if (matched) {
+			updateActiveApp(matched.key);
+
+			document.title = `${matched.name ? `${matched.name}-` : ''}App Center`;
+			const favicon = document.querySelector<HTMLLinkElement>('#favicon-link');
+			if (matched.logo && favicon) {
+				favicon.href = matched.logo ?? ''; // todo upload default favicon url
+			}
+		}
+	}, [appListMap]);
+
+	// const onLoginHandle = () => {
+	//   const url = `http://localhost:3000/api/oauth/github?redirect=${encodeURIComponent(window.location.href)}`;
+	//   window.location.href = url;
+	// };
+
+	return (
+		<div className='relative min-h-screen flex flex-col bg-background'>
+			<Header />
+			<main ref={pointer} className='flex-1'>
+				{renderExtraContent()}
+			</main>
+		</div>
+	);
+
+	function renderExtraContent() {
+		if (!activeApp && location.pathname !== '/')
+			return (
+				<div className='flex flex-col items-center pt-64 gap-2'>
+					<NotFound />
+					<p className='text-2xl font-bold'>404</p>
+					<Button
+						onClick={() => {
+							history.replaceState({}, '', '/home');
+						}}
+					>
+						返回主页
+					</Button>
+				</div>
+			);
+
+		return null;
+	}
 };

@@ -4,6 +4,7 @@
 	"description": "",
 	"scripts": {
 		"dev": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack serve --config ./configs/webpack.config.dev.ts",
+		"debug": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack serve --config ./configs/webpack.config.debug.ts",
 		"build": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./configs/webpack.config.prod.ts",
 		"build:analyze": "cross-env ANALYZE=true NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./configs/webpack.config.prod.ts",
 		"build:release": "pnpm build & cross-env NODE_ENV=production deployer --config deployer.config.ts"

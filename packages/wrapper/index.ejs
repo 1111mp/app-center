@@ -6,7 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link id="favicon-link" rel="shortcut icon" type="image/ico" href="<%= require('./assets/icons/favicon.ico').default %>">
+		<% if (process.env.NODE_ENV === "production") { %>
+			<%= htmlWebpackPlugin.options.cssPlaceholder %>
+		<% } %>
     <% if (process.env.NODE_ENV === "production") { %>
+			<%= htmlWebpackPlugin.options.jsPlaceholder %>
       <script>
         window.APP_LIST = <%= htmlWebpackPlugin.options.appListPlaceholder %>
       </script>

@@ -1,11 +1,11 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"],
-      "ui/*": ["../ui/*"]
-    }
-  },
-  "include": ["src", "__tests__"]
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./src/*"],
+			"ui/*": ["../ui/*"]
+		}
+	},
+	"include": ["src", "__tests__"]
 }
