@@ -11,7 +11,7 @@ import webpackPaths from './webpack.path';
 
 const port = process.env.PORT || 4001,
 	debugQuery = {
-		debug_entry: [`http://localhost:${port}/main.js`],
+		debug_entry: [`//localhost:${port}`],
 	};
 
 const config: Configuration = {

@@ -17,20 +17,23 @@ export const App: React.FC = () => {
 				Object.keys(appListMap).map((key) => {
 					const app = appListMap[key];
 					const resources = app.resources || [];
-					const entry = resources.reduce<AppEntry>(
-						(entry, resource) => {
-							if (resource.endsWith('.js')) {
-								entry.scripts.push(resource);
-							} else if (resource.endsWith('.css')) {
-								entry.styles.push(resource);
-							} else {
-								entry.html = resource;
-							}
+					const entry =
+						app.key === 'debug'
+							? resources[0]
+							: resources.reduce<AppEntry>(
+									(entry, resource) => {
+										if (resource.endsWith('.js')) {
+											entry.scripts.push(resource);
+										} else if (resource.endsWith('.css')) {
+											entry.styles.push(resource);
+										} else {
+											entry.html = resource;
+										}
 
-							return entry;
-						},
-						{ scripts: [], styles: [], html: `<div id="root"></div>` }
-					);
+										return entry;
+									},
+									{ scripts: [], styles: [], html: `<div id="root"></div>` }
+								);
 
 					return {
 						name: app.name,

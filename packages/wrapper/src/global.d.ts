@@ -3,6 +3,7 @@ type MicroApp = {
 	name: string;
 	prefix: string;
 	logo: string;
+	entryServer?: string;
 	resources: string[];
 };
 
