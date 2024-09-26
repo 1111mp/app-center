@@ -23,4 +23,10 @@ export class UserController {
       source: TokenSource.USER,
     });
   }
+
+  @UseGuards(UserLoggedGuard)
+  @Get('current')
+  async getCurrentUser(@UserInfo() user: UserDocument) {
+    return user.publicData;
+  }
 }

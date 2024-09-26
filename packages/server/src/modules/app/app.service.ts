@@ -8,10 +8,11 @@ import {
   ROUTER_USED_PREFIX,
 } from '@/constants/prefix.constant';
 import { App, AppDocument } from './schemas/app.schema';
-import { CreateAppDto } from './dto/create-app.dto';
-import { CreateAppVersionDto } from './dto/create-app-version.dto';
 import { UserDocument } from '@/modules/user/schemas/user.schema';
 import { CacheService } from '@/modules/cache/cache.service';
+import { QueryAppDto } from './dto/query-app.dto';
+import { CreateAppDto } from './dto/create-app.dto';
+import { CreateAppVersionDto } from './dto/create-app-version.dto';
 import { generateToken } from '@/utils/token.util';
 
 import type { AppData } from './types/app-core.type';
@@ -126,6 +127,21 @@ export class AppService {
       /// If the versions are consistent, need to refresh the appList data
       await this.updateAppList();
     }
+  }
+
+  async appList(queryAppDto: QueryAppDto) {
+    const { pageNum, pageSize } = queryAppDto;
+
+    const [total, apps] = await Promise.all([
+      this.appModel.countDocuments(),
+      this.appModel
+        .find({ isDeleted: { $ne: true } })
+        .skip((pageNum - 1) * pageSize)
+        .limit(pageSize)
+        .sort({ createdAt: 1 }),
+    ]);
+
+    return { total, data: apps };
   }
 
   async updateAppList() {

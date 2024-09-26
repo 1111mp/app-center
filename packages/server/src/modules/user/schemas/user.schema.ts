@@ -60,7 +60,8 @@ UserSchema.virtual('publicData').get(function (this: UserDocument) {
     'displayName',
     'avatar',
     'email',
-    'createAt',
+    'createdAt',
+    'updatedAt',
   ]);
 });
 

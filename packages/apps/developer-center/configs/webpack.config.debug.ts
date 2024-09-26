@@ -4,11 +4,15 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import TsconfigPathsPlugins from 'tsconfig-paths-webpack-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import WebpackBar from 'webpackbar';
+import { stringify } from 'query-string';
 
 import { name } from '../package.json';
 import webpackPaths from './webpack.path';
 
-const port = process.env.PORT || 4002;
+const port = process.env.PORT || 4002,
+  debugQuery = {
+    debug_entry: [`//localhost:${port}`],
+  };
 
 const config: Configuration = {
   target: 'web',
@@ -92,6 +96,7 @@ const config: Configuration = {
 
     new webpack.DefinePlugin({
       'process.env.APP_NAME': JSON.stringify(name),
+      'process.env.DEBUG_MODE': 'true',
     }),
 
     new webpack.LoaderOptionsPlugin({
@@ -128,6 +133,7 @@ const config: Configuration = {
     compress: true,
     hot: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
+    open: `http://localhost:3000/debug?${stringify(debugQuery, { arrayFormat: 'bracket' })}`,
     static: {
       publicPath: '/',
     },
