@@ -1,5 +1,5 @@
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import express from 'express';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -22,6 +22,13 @@ async function bootstrap() {
   const logger = app.get(Logger);
   const port = configService.get<number>('SERVER_PORT');
 
+  // api version
+  app.enableVersioning({
+    type: VersioningType.URI,
+    prefix: false,
+    defaultVersion: 'v1',
+  });
+
   // Setting up a trusted reverse proxy.
   // If true, the client’s IP address is understood as the left-most entry in the X-Forwarded-For header.
   app.set('trust proxy', true);
@@ -36,8 +43,8 @@ async function bootstrap() {
 
   app.disable('etag');
 
-  app.use(express.raw({ limit: '100mb' }));
-  app.use(express.json({ limit: '10mb' }));
+  app.useBodyParser('json', { limit: '10mb' });
+  app.useBodyParser('raw', { limit: '100mb' });
   /**
    * The extended option is set to true, which means that the URL-encoded data will be parsed with the qs library,
    * allowing for rich objects and arrays to be encoded into the URL-encoded format.

@@ -7,12 +7,12 @@ import type { Response } from 'express';
 export class FileController {
   constructor(private readonly fileService: FileService) {}
 
-  @Get('static/:scope/*')
+  @Get('static/:scope/*filename')
   async readStatic(
     @Param('scope') scope: string,
-    @Param('0') filename: string,
+    @Param('filename') filename: string[],
     @Res() resp: Response,
   ) {
-    return this.fileService.readStatic(scope, filename, resp);
+    return this.fileService.readStatic(scope, filename.join('/'), resp);
   }
 }

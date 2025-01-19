@@ -11,8 +11,6 @@ const routes: RouteObject[] = [
   },
 ];
 
-console.log(process.env.DEBUG_MODE);
-
 export const router: ReturnType<typeof createBrowserRouter> =
   createBrowserRouter(routes, {
     basename: process.env.DEBUG_MODE ? '/debug' : 'developer-center',

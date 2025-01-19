@@ -2,7 +2,6 @@ import './public-path';
 import { StrictMode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { App } from './app';
-import React from 'react';
 
 interface MicroAppProps {
   container?: HTMLElement;
@@ -16,12 +15,12 @@ function render(props: MicroAppProps) {
   root = createRoot(
     (container
       ? container.querySelector('#root')
-      : document.querySelector('#root')) as HTMLElement
+      : document.querySelector('#root')) as HTMLElement,
   );
   root.render(
     <StrictMode>
       <App />
-    </StrictMode>
+    </StrictMode>,
   );
 }
 

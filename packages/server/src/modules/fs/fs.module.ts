@@ -21,7 +21,7 @@ import { MutableFS, MutableFSSchema } from './schemas/mutable-fs.schema';
           connection,
           'static',
           false,
-          `${configService.get<string>('SERVER_BASE_URL')}/api/file/static`,
+          `${configService.get<string>('SERVER_BASE_URL')}/v1/api/file/static`,
         );
       },
       inject: [ConfigService, getConnectionToken()],

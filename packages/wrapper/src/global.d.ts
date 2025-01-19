@@ -1,18 +1,18 @@
 type MicroApp = {
-	key: string;
-	name: string;
-	prefix: string;
-	logo: string;
-	entryServer?: string;
-	resources: string[];
+  key: string;
+  name: string;
+  prefix: string;
+  logo: string;
+  entryServer?: string;
+  resources: string[];
 };
 
 type AppEntry = {
-	scripts: string[];
-	styles: string[];
-	html?: string;
+  scripts: string[];
+  styles: string[];
+  html?: string;
 };
 
 interface Window {
-	APP_LIST: MicroApp[];
+  APP_LIST: MicroApp[];
 }

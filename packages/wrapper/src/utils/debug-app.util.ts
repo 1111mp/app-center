@@ -17,7 +17,7 @@ export function getDebugApp(): MicroApp | undefined {
         ? search.getAll(DEBUG_APP_ENTRY)
         : search.getAll(`${DEBUG_APP_ENTRY}[]`);
       const resources = (Array.isArray(entry) ? entry : [entry]).map((entry) =>
-        decodeURIComponent(entry)
+        decodeURIComponent(entry),
       );
 
       debugApp = {

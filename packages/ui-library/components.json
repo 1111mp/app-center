@@ -10,9 +10,12 @@
     "cssVariables": true,
     "prefix": ""
   },
+  "iconLibrary": "lucide",
   "aliases": {
-    "ui": "src/components",
-    "components": "@/components",
-    "utils": "@/lib/utils"
+    "components": "ui-library/components",
+    "utils": "ui-library/lib/utils",
+    "hooks": "ui-library/hooks",
+    "lib": "ui-library/lib",
+    "ui": "ui-library/components"
   }
 }

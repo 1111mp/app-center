@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
-import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '@/lib/utils';
+import { cn } from 'ui-library/lib/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
 
 const avatarVariants = cva(
   'relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full',
@@ -17,7 +17,7 @@ const avatarVariants = cva(
     defaultVariants: {
       size: 'md',
     },
-  }
+  },
 );
 
 export interface AcatarProps
@@ -56,7 +56,7 @@ const AvatarFallback = React.forwardRef<
     ref={ref}
     className={cn(
       'flex h-full w-full items-center justify-center rounded-full bg-muted',
-      className
+      className,
     )}
     {...props}
   />

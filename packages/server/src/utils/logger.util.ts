@@ -26,7 +26,9 @@ function formatter(showStack: boolean = false) {
 
       let stack = '';
       if (showStack) {
-        stack = info.stack ? `\n\t${jsonStringify(info.stack).replace(/\n/g, '\n\t')}` : '';
+        stack = info.stack
+          ? `\n\t${jsonStringify(info.stack).replace(/\n/g, '\n\t')}`
+          : '';
       }
 
       info[Symbol.for('message')] =

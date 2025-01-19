@@ -1,7 +1,12 @@
 {
-	"extends": "../../../tsconfig.json",
-	"compilerOptions": {
-		"baseUrl": "."
-	},
-	"include": ["src", "__tests__"]
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "ui-library/*": ["../../ui-library/src/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "dist"]
 }

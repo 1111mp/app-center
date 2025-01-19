@@ -1,26 +1,29 @@
 import { Global, Module } from '@nestjs/common';
-import { Model } from 'mongoose';
-import { getModelToken, MongooseModule } from '@nestjs/mongoose';
+import { ConfigService } from '@nestjs/config';
 import { CacheModule as NestCacheModule } from '@nestjs/cache-manager';
+import Keyv from 'keyv';
+import KeyvMongo from '@keyv/mongo';
 
 import { CacheService } from './cache.service';
-import { createMongooseCacheStore } from './mongoose-cache.store';
-import { Cache, CacheDocument, CacheSchema } from './schemas/cache.schema';
 
 @Global()
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Cache.name, schema: CacheSchema }]),
     NestCacheModule.registerAsync({
       isGlobal: true,
-      useFactory: (cacheModel: Model<CacheDocument>) => ({
-        store: { create: createMongooseCacheStore },
-        cacheModel,
+      useFactory: (configService: ConfigService) => ({
+        stores: [
+          new Keyv(
+            new KeyvMongo(configService.get('MONGODB_URI'), {
+              collection: 'caches',
+            }),
+          ),
+        ],
       }),
-      inject: [getModelToken(Cache.name)],
+      inject: [ConfigService],
     }),
   ],
   providers: [CacheService],
-  exports: [CacheService, MongooseModule],
+  exports: [CacheService],
 })
 export class CacheModule {}

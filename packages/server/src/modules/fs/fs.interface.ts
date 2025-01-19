@@ -17,7 +17,6 @@ export interface FSMetaData {
   };
 }
 
-
 export interface CommonFSInterface {
   getMetaData(scope: string, id: string): Promise<FSMetaData>;
   getMetaDataByName(scope: string, filename: string): Promise<FSMetaData>;

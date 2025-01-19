@@ -1,7 +1,6 @@
 import { join } from 'path';
 import { renderFile } from 'ejs';
 import { Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-// import mongoose from 'mongoose';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -51,14 +50,12 @@ if (process.env.NODE_ENV === 'development') {
           },
           {
             rootPath,
-            renderPath: '*',
+            renderPath: '*path',
             renderFn: async (req: Request, res: Response, next) => {
               const pathname = req.originalUrl;
-              if (
-                ['/api', '/open-api', '/app-static'].find(
-                  (path) => pathname.indexOf(path) !== -1,
-                )
-              ) {
+              const validPathRegex =
+                /^\/(v1\/api|v1\/open-api|app-static)(\/|$)/;
+              if (validPathRegex.test(pathname)) {
                 next();
               } else {
                 const userId = req.user?._id?.toString();
@@ -133,6 +130,6 @@ if (process.env.NODE_ENV === 'development') {
 })
 export class MainModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('*');
+    consumer.apply(LoggerMiddleware).forRoutes('*path');
   }
 }

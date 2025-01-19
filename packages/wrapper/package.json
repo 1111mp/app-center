@@ -1,12 +1,14 @@
 {
   "name": "wrapper",
   "version": "1.0.0",
-  "description": "",
+  "description": "基于微前端架构的 Web 应用中心 - 根应用",
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack serve --config ./configs/webpack.config.dev.ts",
     "build": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./configs/webpack.config.prod.ts",
-    "build:analyze": "cross-env ANALYZE=true NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./configs/webpack.config.prod.ts"
+    "build:analyze": "cross-env ANALYZE=true NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./configs/webpack.config.prod.ts",
+    "clean": "rimraf dist .turbo",
+    "postinstall": "pnpm build"
   },
   "keywords": [],
   "author": "",

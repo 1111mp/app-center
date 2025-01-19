@@ -116,6 +116,10 @@ export class StaticFSService implements CommonFSInterface {
         content = Readable.from(content);
       } else if (typeof content === 'string') {
         content = Readable.from([content]);
+      } else if (!(content instanceof Readable)) {
+        throw new Error(
+          'Invalid content type. Expected Buffer, string, or Stream.',
+        );
       }
 
       try {

@@ -2,6 +2,7 @@ import { Resource } from './app-version.type';
 
 export enum AppType {
   Micro = 1,
+  External = 2,
 }
 
 export interface AppData {

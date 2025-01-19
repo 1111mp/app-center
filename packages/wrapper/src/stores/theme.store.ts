@@ -22,7 +22,7 @@ export function useThemeStore() {
       localStorage.setItem('APP_THEME', theme);
       updateStore((store) => ({ ...store, theme }));
     },
-    [theme]
+    [theme],
   );
 
   return {

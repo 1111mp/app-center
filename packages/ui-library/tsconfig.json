@@ -3,8 +3,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "ui-library/*": ["./src/*"]
     }
   },
-  "include": ["src", "__tests__"]
+  "include": ["."],
+  "exclude": ["node_modules", "dist"]
 }

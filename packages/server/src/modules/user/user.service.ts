@@ -1,4 +1,4 @@
-import { Model, SchemaTypes, Types } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 

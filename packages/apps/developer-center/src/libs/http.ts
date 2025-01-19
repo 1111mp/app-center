@@ -3,7 +3,7 @@ import { mapValues } from 'lodash';
 import { stringify } from 'query-string';
 
 const instance = axios.create({
-  baseURL: '',
+  baseURL: 'http://localhost:3000/v1/api',
   maxRedirects: 10,
   timeout: 10 * 1000,
   withCredentials: true,
@@ -60,5 +60,5 @@ export const http = mapValues(
           return Promise.reject(res);
         }
         return Promise.resolve(res.data.payload);
-      })
+      }),
 );

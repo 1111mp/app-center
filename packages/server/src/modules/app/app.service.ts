@@ -1,5 +1,10 @@
 import { Model } from 'mongoose';
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { valid } from 'semver';
 
@@ -10,9 +15,10 @@ import {
 import { App, AppDocument } from './schemas/app.schema';
 import { UserDocument } from '@/modules/user/schemas/user.schema';
 import { CacheService } from '@/modules/cache/cache.service';
+import { CreateAppVersionDto } from './dto/create-app-version.dto';
 import { QueryAppDto } from './dto/query-app.dto';
 import { CreateAppDto } from './dto/create-app.dto';
-import { CreateAppVersionDto } from './dto/create-app-version.dto';
+import { UpdateAppDto } from './dto/update-app.dot';
 import { generateToken } from '@/utils/token.util';
 
 import type { AppData } from './types/app-core.type';
@@ -30,6 +36,10 @@ export class AppService {
 
   async getByToken(key: string, token: string) {
     return this.appModel.findOne({ key, token });
+  }
+
+  async getOne(id: string) {
+    return this.appModel.findById(id);
   }
 
   async createOne(createAppDto: CreateAppDto, user: UserDocument) {
@@ -127,6 +137,50 @@ export class AppService {
       /// If the versions are consistent, need to refresh the appList data
       await this.updateAppList();
     }
+  }
+
+  async updateOne(id: string, updateAppDto: UpdateAppDto) {
+    const app = await this.appModel.findById(id);
+    if (!app) throw new NotFoundException(`could not find app with id ${id}`);
+
+    for (const key of Object.keys(updateAppDto)) {
+      switch (key) {
+        case 'admins':
+        case 'testUser':
+          const oldValue = app[key] as AppDocument['admins' | 'testUsers'];
+          app[key] = oldValue.concat(updateAppDto[key]);
+          break;
+        case 'testVersion':
+        case 'currentVersion':
+          const appVersion = app.versions.find(
+            ({ version }) => version === updateAppDto[key],
+          );
+          app[key] = appVersion
+            ? {
+                version: appVersion.version,
+                resources: appVersion.resources,
+                config: appVersion.config,
+              }
+            : void 0;
+          break;
+        default:
+          app[key] = updateAppDto[key];
+          break;
+      }
+    }
+    await app.save();
+    await this.updateAppList();
+  }
+
+  async deleteOne(id: string) {
+    const app = await this.appModel.findById(id);
+    if (!app) throw new NotFoundException(`could not find app with id ${id}`);
+
+    /// just mark as deleted
+    app.isDeleted = true;
+
+    await app.save();
+    await this.updateAppList();
   }
 
   async appList(queryAppDto: QueryAppDto) {

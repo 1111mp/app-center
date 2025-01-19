@@ -5,7 +5,7 @@ const config: DeployConfig = {
 	version,
 	dir: './dist',
 	appKey: 'developer-center',
-	appToken: '2dec6b1264bf5eba233b1a3a79e6ada6',
+	appToken: 'd3f1ed0f6de5d01c4e394c302b2b2341',
 	baseUrl: 'http://127.0.0.1:3000/open-api',
 	publicPath: 'http://127.0.0.1:3000/api/file/static/developer-center',
 	glob: '**/!(route.json|report.html|asset-manifest.json|*.map|*.LICENSE.txt)',

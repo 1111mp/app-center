@@ -9,5 +9,5 @@ export class CreateAppDto {
   name: string;
 
   @IsEnum(AppType)
-  type: AppType;
+  type: AppType = AppType.Micro;
 }

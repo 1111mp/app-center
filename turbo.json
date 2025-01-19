@@ -17,6 +17,10 @@
     "debug": {
       "cache": false,
       "persistent": true
+    },
+    "clean": {
+      "cache": false,
+      "outputs": []
     }
   }
 }
