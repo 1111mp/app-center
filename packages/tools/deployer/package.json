@@ -25,7 +25,7 @@
   ],
   "scripts": {
     "build": "tsup",
-    "clean": "rimraf dist .turbo",
+    "clean": "rimraf dist .turbo node_modules",
     "postinstall": "tsup"
   },
   "dependencies": {

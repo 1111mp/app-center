@@ -16,8 +16,8 @@
     "build:deployer": "turbo build --filter=deployer",
     "build:release": "turbo build:release --filter=home --filter=developer-center",
     "clean": "pnpm clean:turbo && pnpm clean:lock && pnpm clean:node-modules && pnpm install",
-    "clean:turbo": "turbo clean && rimraf .turbo && rimraf ./node_modules/.cache/turbo",
-    "clean:node-modules": "rimraf ./packages/**/node_modules ./packages/**/**/node_modules && rimraf ./node_modules",
+    "clean:turbo": "turbo clean",
+    "clean:node-modules": "rimraf node_modules",
     "clean:lock": "rimraf ./pnpm-lock.yaml",
     "format:check": "prettier --check ./**/**/src --cache",
     "format:write": "prettier --write ./**/**/src --cache"

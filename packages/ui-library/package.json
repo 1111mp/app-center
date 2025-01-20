@@ -11,7 +11,7 @@
     "./hooks/*": "./src/hooks/*.ts"
   },
   "scripts": {
-    "clean": "rimraf dist .turbo"
+    "clean": "rimraf dist .turbo node_modules"
   },
   "keywords": [],
   "author": "",

@@ -11,7 +11,7 @@
     "build": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./configs/webpack.config.prod.ts",
     "build:analyze": "cross-env ANALYZE=true NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./configs/webpack.config.prod.ts",
     "build:release": "pnpm build & cross-env NODE_ENV=production deployer --config deployer.config.ts",
-    "clean": "rimraf dist .turbo"
+    "clean": "rimraf dist .turbo node_modules"
   },
   "dependencies": {
     "ui-library": "workspace:^"

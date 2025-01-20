@@ -63,7 +63,7 @@ if (process.env.NODE_ENV === 'development') {
                   /// If not logged in, need to redirect to the login url
                   const redirect = `${configService.get<string>('SERVER_BASE_URL')}${req.originalUrl}`;
                   return res.redirect(
-                    `${configService.get<string>('SERVER_BASE_URL')}/api/oauth/github?redirect=${encodeURIComponent(redirect)}`,
+                    `${configService.get<string>('GITHUB_CALLBACK_URL')}?redirect=${encodeURIComponent(redirect)}`,
                   );
                 }
 
